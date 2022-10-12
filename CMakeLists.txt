@@ -12,8 +12,9 @@ include_directories(include)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 add_library(music OBJECT src/music.cpp)
+add_library(playlist OBJECT src/playlist.cpp)
 
 add_executable(test test.cpp)
 
 target_link_libraries(music ${SDL2_LIBRARIES} SDL2_mixer)
-target_link_libraries(test music path)
+target_link_libraries(test music playlist path)

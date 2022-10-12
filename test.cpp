@@ -1,15 +1,14 @@
 #include <music.hpp>
-#include <allansm/path.hpp>
+#include <playlist.hpp>
 
 int main(int argc, char** argv){
-	chdir(argv[1]);
+	Playlist playlist((std::string) argv[1]);
+	
+	while(!playlist.end()){
+		std::string current = playlist.next();
+		std::cout << current << "\n";
 
-	for(auto n : ls(".")){
-		if(n != "." && n != ".."){
-			std::cout << n << "\n";
-			
-			Music(n.c_str()).play();
-		}
+		Music(current).play();
 	}
 
 	return 0;
