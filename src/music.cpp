@@ -2,6 +2,9 @@
 
 Music::Music(std::string file){
 	this->file = file;
+
+	this->title = file.substr(file.find_last_of("/\\") + 1);
+	this->title = this->title.substr(0, this->title.find_last_of("."));
 }
 
 void Music::play(){
@@ -17,3 +20,6 @@ void Music::play(){
 	Mix_CloseAudio();
 }
 
+std::string Music::getTitle(){
+	return this->title;
+}

@@ -11,6 +11,7 @@
 
 class Playlist{
 	std::string path;
+	std::string name;
 	std::vector<std::string> playlist;
 	
 	int index = 0;
@@ -18,6 +19,8 @@ class Playlist{
 
 	public:
 		Playlist(std::string path);
+		
 		std::string next();
+		std::string getName();
 		bool end();
 };

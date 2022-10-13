@@ -1,6 +1,8 @@
 #include <playlist.hpp>
 
 Playlist::Playlist(std::string path){
+	this->name = path.substr(path.find_last_of("/\\") + 1);
+	
 	char current[255];
 	getcwd(current,255);
 	
@@ -46,6 +48,10 @@ std::string Playlist::next(){
 	if(!this->playlist_end) this->index+=1;
 
 	return current;
+}
+
+std::string Playlist::getName(){
+	return this->name;
 }
 
 bool Playlist::end(){

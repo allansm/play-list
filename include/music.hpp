@@ -4,8 +4,11 @@
 
 class Music{
 	std::string file;
+	std::string title;
 
 	public:
 		Music(std::string file);
+		
 		void play();
+		std::string getTitle();
 };

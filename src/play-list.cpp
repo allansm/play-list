@@ -16,9 +16,12 @@ int main(int argc, char** argv){
 
 			if(!end){
 				std::string next = playlist.next();
-				std::cout << next << "\n";
+				Music music(next);
 
-				Music(next).play();
+				std::cout << playlist.getName() << "\n\n";
+				std::cout << "Listening: " << music.getTitle() << "\n\n";
+				
+				music.play();
 			}
 		}
 	}
