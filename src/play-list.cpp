@@ -6,14 +6,24 @@ int main(int argc, char** argv){
 	std::vector<Playlist> playlists;
 	
 	while(!root.end()){
-		playlists.push_back(Playlist(root.next()));
+		std::string next = root.next();
+
+		Playlist playlist(next);
+		
+		std::cout << next << "\n" << playlist.getName() << "\n\n";
+
+		playlists.push_back(playlist);
 	}
 
 	bool end = false;
 	while(!end){
-		for(auto playlist: playlists){
+		unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+		std::default_random_engine e(seed);
+		std::shuffle(playlists.begin(), playlists.end(), e);
+		
+		for(auto playlist : playlists){
 			end = playlist.end();
-
+			
 			if(!end){
 				std::string next = playlist.next();
 				Music music(next);
@@ -22,6 +32,8 @@ int main(int argc, char** argv){
 				std::cout << "Listening: " << music.getTitle() << "\n\n";
 				
 				music.play();
+
+				break;
 			}
 		}
 	}
