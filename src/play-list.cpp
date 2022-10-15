@@ -21,14 +21,14 @@ int main(int argc, char** argv){
 		std::default_random_engine e(seed);
 		std::shuffle(playlists.begin(), playlists.end(), e);
 		
-		for(auto playlist : playlists){
-			end = playlist.end();
+		for(int i = 0;i<playlists.size();i++){
+			end = playlists[i].end();
 			
 			if(!end){
-				std::string next = playlist.next();
+				std::string next = playlists[i].next();
 				Music music(next);
 
-				std::cout << playlist.getName() << "\n\n";
+				std::cout << playlists[i].getName() << "\n\n";
 				std::cout << "Listening: " << music.getTitle() << "\n\n";
 				
 				music.play();
