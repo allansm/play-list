@@ -1,5 +1,6 @@
 #include <music.hpp>
 #include <playlist.hpp>
+#include <norepeat.hpp>
 
 int main(int argc, char** argv){
 	Playlist root((std::string) argv[1]);
@@ -15,6 +16,8 @@ int main(int argc, char** argv){
 		playlists.push_back(playlist);
 	}
 
+	NoRepeat norepeat;
+
 	bool end = false;
 	while(!end){
 		unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -28,15 +31,22 @@ int main(int argc, char** argv){
 				std::string next = playlists[i].next();
 				Music music(next);
 
-				std::cout << playlists[i].getName() << "\n\n";
-				std::cout << "Listening: " << music.getTitle() << "\n\n";
-				
-				music.play();
+				if(!norepeat.check(music.getTitle())){
+					std::cout << playlists[i].getName() << "\n\n";
+					std::cout << "Listening: " << music.getTitle() << "\n\n";
+					music.play();
+					
+					norepeat.add(music.getTitle());
 
-				break;
+					break;
+				}else{
+					std::cout << "skiping " << music.getTitle() << "\n";
+				}
 			}
 		}
 	}
+
+	norepeat.clear();
 
 	return 0;
 }
