@@ -22,5 +22,7 @@ class Playlist{
 		
 		std::string next();
 		std::string getName();
+		int current();
+		int size();
 		bool end();
 };

@@ -54,6 +54,14 @@ std::string Playlist::getName(){
 	return this->name;
 }
 
+int Playlist::current(){
+	return this->index;
+}
+
+int Playlist::size(){
+	return this->playlist.size();
+}
+
 bool Playlist::end(){
 	return this->playlist_end;
 }

@@ -5,17 +5,22 @@
 int main(int argc, char** argv){
 	Playlist root((std::string) argv[1]);
 	std::vector<Playlist> playlists;
-	
+	int total = 0;
+
 	while(!root.end()){
 		std::string next = root.next();
 
 		Playlist playlist(next);
 		
 		std::cout << next << "\n" << playlist.getName() << "\n\n";
-
+		
+		total += playlist.size();
+		
 		playlists.push_back(playlist);
 	}
 
+	std::cout << "total music: " << total << "\n\n";
+	
 	NoRepeat norepeat;
 
 	bool end = false;
@@ -32,7 +37,7 @@ int main(int argc, char** argv){
 				Music music(next);
 
 				if(!norepeat.check(music.getTitle())){
-					std::cout << playlists[i].getName() << "\n\n";
+					std::cout << playlists[i].getName() << " " << playlists[i].current() << "/" << playlists[i].size() <<"\n\n";
 					std::cout << "Listening: " << music.getTitle() << "\n\n";
 					music.play();
 					
@@ -40,7 +45,7 @@ int main(int argc, char** argv){
 
 					break;
 				}else{
-					std::cout << "skiping " << music.getTitle() << "\n";
+					std::cout << "skiping " << music.getTitle() << "\n\n";
 				}
 			}
 		}
