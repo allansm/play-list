@@ -2,7 +2,7 @@
 #include <playlist.hpp>
 #include <norepeat.hpp>
 
-int main(int argc, char** argv){
+void play(char** argv){
 	Playlist root((std::string) argv[1]);
 	std::vector<Playlist> playlists;
 	int total = 0;
@@ -50,8 +50,28 @@ int main(int argc, char** argv){
 			}
 		}
 	}
+	
+	std::cout << "clearing cache...\n\n";
 
 	norepeat.clear();
+}
+
+int main(int argc, char** argv){
+	bool loop = false;
+	
+	if(argc == 1){
+		std::cout << "Usage: play-list path/to/playlist [OPTIONS]\n";
+
+		return 1;
+	}
+
+	if(argc == 3)
+		if(((std::string) argv[2]) == "--loop") loop = true;
+	
+	if(loop) 
+		std::cout << "Music will never end\n\n";
+	
+	do play(argv); while(loop);
 
 	return 0;
 }
