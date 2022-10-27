@@ -2,8 +2,20 @@ cmake_minimum_required (VERSION 2.8.11)
 
 project (play-list)
 
-add_subdirectory(SDL)
-add_subdirectory(SDL_mixer)
+find_package(SDL2)
+find_library(SDL2_MIXER NAMES SDL2_mixer)
+
+if(NOT SDL2_FOUND)
+	add_subdirectory(SDL)
+else()
+	message("-- SDL2 FOUND")
+endif()
+
+if(NOT SDL2_MIXER)
+	add_subdirectory(SDL_mixer)
+else()
+	message("-- SDL2_MIXER FOUND")
+endif()
 
 include_directories(include)
 include_directories(SDL/include)
