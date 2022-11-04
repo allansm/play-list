@@ -5,6 +5,10 @@ project (play-list)
 find_package(SDL2)
 find_library(SDL2_MIXER NAMES SDL2_mixer)
 
+if((NOT SDL2_FOUND) OR (NOT SDL2_MIXER))
+	execute_process(COMMAND git submodule update --init --recursive)
+endif()
+
 if(NOT SDL2_FOUND)
 	add_subdirectory(SDL)
 else()
