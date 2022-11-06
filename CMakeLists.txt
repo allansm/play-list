@@ -34,4 +34,7 @@ add_executable(play-list src/play-list.cpp)
 target_link_libraries(music SDL2::SDL2 SDL2_mixer)
 target_link_libraries(play-list music playlist path norepeat)
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/play-list DESTINATION bin)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/play-list
+	PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ WORLD_EXECUTE WORLD_WRITE WORLD_READ
+       	DESTINATION bin)
+
