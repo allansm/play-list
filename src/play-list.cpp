@@ -2,6 +2,16 @@
 #include <playlist.hpp>
 #include <norepeat.hpp>
 
+void notify(std::string title, std::string message){
+	std::string command = "";
+
+	#if defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
+		command = "notify-send \""+title+"\" \""+message+"\"";
+		
+		system(command.c_str());
+	#endif
+}
+
 void play(char** argv){
 	Playlist root((std::string) argv[1]);
 	std::vector<Playlist> playlists;
@@ -39,6 +49,9 @@ void play(char** argv){
 				if(!norepeat.check(music.getTitle())){
 					std::cout << playlists[i].getName() << " " << playlists[i].current() << "/" << playlists[i].size() <<"\n\n";
 					std::cout << "Listening: " << music.getTitle() << "\n\n";
+					
+					notify("Listening:", music.getTitle());
+					
 					music.play();
 					
 					norepeat.add(music.getTitle());
@@ -68,8 +81,10 @@ int main(int argc, char** argv){
 	if(argc == 3)
 		if(((std::string) argv[2]) == "--loop") loop = true;
 	
-	if(loop) 
+	if(loop){
 		std::cout << "Music will never end\n\n";
+		notify("play-list:", "Music will never end");
+	}
 	
 	do play(argv); while(loop);
 
