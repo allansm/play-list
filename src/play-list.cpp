@@ -2,6 +2,12 @@
 #include <playlist.hpp>
 #include <norepeat.hpp>
 
+#include <csignal>
+
+void on_exit(int) {
+	exit(0);
+}
+
 void notify(std::string title, std::string message){
 	std::string command = "";
 
@@ -70,6 +76,8 @@ void play(char** argv){
 }
 
 int main(int argc, char** argv){
+	std::signal(SIGINT, on_exit);
+
 	bool loop = false;
 	
 	if(argc == 1){
